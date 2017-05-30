@@ -42,5 +42,39 @@ class MyDB
         }
         
     }
+    
+    func createTable()
+    {
+        do
+        {
+            try db!.run(categorie.create(ifNotExists : true)
+            {
+                table
+                in
+                table.column(id_categorie,primaryKey:true)
+                table.column(cat_descrizione)
+                table.column(tipo)
+                print("Tabella Categorie creata")
+            })
+            
+            try db!.run(movimenti.create(ifNotExists : true)
+            {
+                table
+                in
+                table.column(id,primaryKey:true)
+                table.column(data)
+                table.column(descrizione)
+                table.column(importo)
+                table.foreignKey(cat_movimento, references:categorie,id, delete:.setNull)
+                print("Tabella Movimenti creata")
+            })
+            
+
+        }
+        catch
+        {
+            print("Impossibile creare tabelle")
+        }
+    }
 
 }
