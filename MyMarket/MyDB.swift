@@ -27,5 +27,20 @@ class MyDB
     private let cat_descrizione = Expression<String>("descrizione")
     private let tipo            = Expression<String>("tipo")
     
+    private init()
+    {
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+        
+        do
+        {
+            db = try Connection("\(path)/MyDB.sqlite3")
+        }
+        catch
+        {
+            db = nil
+            print ("Impossibile aprire database")
+        }
+        
+    }
 
 }
